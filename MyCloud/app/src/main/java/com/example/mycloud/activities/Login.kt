@@ -40,7 +40,6 @@ class Login : AppCompatActivity() {
             var check = false
             thread {
                 //检测账号密码是否匹配
-                Log.d("Login","开始检测")
                for (users in loginDao.loadAllUsers()){
                    if (account.equals(users.account) && password.equals(users.password)){
                        Log.d("Login","检测到了")
@@ -48,10 +47,9 @@ class Login : AppCompatActivity() {
                        break
                    }
                }
-                Log.d("Login","check的值为:$check")
+                
                 if (check){
                     //账号与密码匹配成功
-                    Log.d("Login","通过检测")
                     val editor = prefs.edit()
                     //若点击了记住密码，则将账号与密码保存至SharedPreference
                     if (remeberpassword.isChecked){
@@ -68,7 +66,6 @@ class Login : AppCompatActivity() {
                     startActivity(intent)
                 }else{
                     //账号与密码不匹配，则开启主线程并在其中弹出AlertDialog
-                    Log.d("Login","检测到了错误")
                     runOnUiThread {
                         AlertDialog.Builder(this).apply {
                             setTitle("提示信息")
