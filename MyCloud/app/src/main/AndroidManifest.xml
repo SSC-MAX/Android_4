@@ -28,7 +28,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".userPages.ChooseUploadModel"></activity>
+       
         <activity
             android:name=".userPages.MainPage"
             android:label=""></activity>
@@ -42,9 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.JumpTest"
-            android:label="JumpTest"></activity>
+        
         <activity
             android:name=".activities.Login"
             android:label="欢迎登录"></activity>

@@ -256,10 +256,7 @@ class SubFolder : AppCompatActivity() {
     }
 
     private fun uploadPicture(filePath:String?,image:Pictures){
-        //创建Okhttp
         val builder = OkHttpClient.Builder()
-        //添加日志拦截器（自定义日志拦截器）也可以不添加
-        //builder.addInterceptor(LoggingInterceptor())
         val client = builder.build()
         val retrofit = Retrofit.Builder()
             .client(client)
@@ -293,10 +290,7 @@ class SubFolder : AppCompatActivity() {
     }
 
     private fun getPictrue(){
-        //创建Okhttp
         val builder = OkHttpClient.Builder()
-        //添加日志拦截器（自定义日志拦截器）也可以不添加
-        //builder.addInterceptor(LoggingInterceptor())
         val client = builder.build()
         val retrofit = Retrofit.Builder()
             .client(client)
