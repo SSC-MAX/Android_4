@@ -1,6 +1,7 @@
 package com.example.mycloud.adapters
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,6 @@ import kotlinx.android.synthetic.main.layout_preview_picture.view.*
 
 class PicturesAdapter(val pictureslist:ArrayList<Pictures>)  : RecyclerView.Adapter<PicturesAdapter.InnerViewHolder>(){
 
-    
-
     inner class InnerViewHolder(view:View) : RecyclerView.ViewHolder(view){
         val picturesImage: ImageView = view.findViewById(R.id.imageView_picturesImage)
         val picturesName : TextView  = view.findViewById(R.id.textView_picturesName)
@@ -38,8 +37,9 @@ class PicturesAdapter(val pictureslist:ArrayList<Pictures>)  : RecyclerView.Adap
         holder.picturesName.text = picture.name
         holder.itemView.setOnClickListener{
             val mycontext = holder.itemView.context
-            if (picture.name.equals("我的图片")){
+            if (picture.id.equals("root")){
                 val intent = Intent(mycontext, SubFolder::class.java)
+                intent.putExtra("pic_id",picture.id)
                 mycontext.startActivity(intent)
             }else{
                 val previewPictures = LayoutInflater.from(mycontext).inflate(R.layout.layout_preview_picture, null)

@@ -6,7 +6,9 @@ import android.os.Bundle
 import com.example.mycloud.R
 import kotlinx.android.synthetic.main.activity_start.*
 
-class Start : AppCompatActivity() {
+class
+
+Start : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
