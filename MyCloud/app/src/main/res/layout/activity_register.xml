@@ -136,16 +136,6 @@
                 android:text="@string/Register_String">
             </Button>
 
-            <Button
-                android:id="@+id/button_See"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_log_reg_btn"
-                android:textSize="20sp"
-                android:text="查看数据">
-            </Button>
 
         </LinearLayout>
 
