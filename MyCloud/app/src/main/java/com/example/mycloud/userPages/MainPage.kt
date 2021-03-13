@@ -62,7 +62,7 @@ class MainPage : AppCompatActivity() {
         //Recyclerveiw显示
         val TitleImage = BitmapFactory.decodeResource(resources, R.drawable.ic_myfile)
         val newSecond = Pictures("root", "文件夹", TitleImage)
-        AppContext.cacheData.put("root", picturesList);
+       
         picturesList.add(newSecond)
         nullItems.add(
             Pictures(
