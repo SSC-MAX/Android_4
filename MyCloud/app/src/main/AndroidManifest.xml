@@ -14,7 +14,8 @@
         android:theme="@style/Theme.MyCloud">
 
         <activity android:name=".userPages.SubFolder"
-            android:label="">
+            android:label=""
+            android:theme="@style/Theme.MyCloud.Encryption">
 
         </activity>
 

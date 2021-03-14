@@ -17,12 +17,13 @@ import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.example.mycloud.R
+import com.example.mycloud.activities.Profile
 import com.example.mycloud.api.ApiService
 import com.example.mycloud.app.AppContext
 import com.example.mycloud.beans.PictureDTO
 import com.example.mycloud.beans.Pictures
 import com.example.mycloud.utils.RecyclerViewSettings
-import com.example.mycloud.utils.ShowToast
+import com.example.mycloud.utils.*
 import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.layout_choose_upload_model.view.*
 import kotlinx.android.synthetic.main.layout_show_chosen_image.view.*
@@ -58,6 +59,7 @@ class SubFolder : AppCompatActivity() {
         setContentView(R.layout.activity_sub_folder)
         setToolbar()
 
+        GetToast.ShowToast(this,"已打开加密文件")
         val picId = intent.getStringExtra("pic_id")
         if (!picId!!.isEmpty()) {
             if(AppContext.cacheData.containsKey(picId)){
@@ -204,7 +206,7 @@ class SubFolder : AppCompatActivity() {
                 //相册选择按钮
                 chooseModelLayout.button_ChooseFromPhotos.setOnClickListener {
                     dialog.dismiss()
-                    ShowToast(this, "从相册选择")
+                    GetToast.ShowToast(this, "从相册选择")
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     intent.addCategory(Intent.CATEGORY_OPENABLE)
                     intent.type = "image/*"
@@ -213,7 +215,7 @@ class SubFolder : AppCompatActivity() {
                 //照相选择按钮
                 chooseModelLayout.button_ChooseFromCamera.setOnClickListener {
                     dialog.dismiss()
-                    ShowToast(this, "照相选择")
+                    GetToast.ShowToast(this, "照相选择")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
                         outputImage = File(externalCacheDir, "output_image.jpg")
                     }
@@ -246,6 +248,11 @@ class SubFolder : AppCompatActivity() {
                 if (!dialog.isShowing) {
                     dialog.show()
                 }
+            }
+
+            R.id.user -> {
+                val intent = Intent(this, Profile::class.java)
+                startActivity(intent)
             }
         }
         return true

@@ -8,6 +8,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
         android:src="@drawable/profile"/>
 
@@ -15,17 +16,17 @@
         android:id="@+id/textView_Profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginLeft="160dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/green"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/exit_app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:background="@color/smoothRed"
         android:textSize="20sp"
         android:textColor="@color/white"

@@ -11,19 +11,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.example.mycloud.R
+import com.example.mycloud.activities.Login
 import com.example.mycloud.activities.Profile
 import com.example.mycloud.api.ApiService
-import com.example.mycloud.app.AppContext
 import com.example.mycloud.beans.PictureDTO
 import com.example.mycloud.beans.Pictures
 import com.example.mycloud.utils.RecyclerViewSettings
-import com.example.mycloud.utils.ShowToast
+import com.example.mycloud.utils.*
+import com.example.mycloudtest.database.AppDatabase
 import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.layout_choose_upload_model.view.*
 import kotlinx.android.synthetic.main.layout_show_chosen_image.view.*
@@ -40,6 +43,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
 
 class MainPage : AppCompatActivity() {
     private val fromCamera = 1
@@ -54,14 +58,20 @@ class MainPage : AppCompatActivity() {
     val UPLOAD_BASE_URL = "http://baidu.com/uploadPicture/"
     val GET_BASE_URL = "http://baidu.com/getPicture/"
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
         setToolbar()
 
+        val myDao = AppDatabase.getDatabase(this).userDao()
+
+
+
         //Recyclerveiw显示
         val TitleImage = BitmapFactory.decodeResource(resources, R.drawable.ic_myfile)
-        val newSecond = Pictures("root", "文件夹", TitleImage)
+        val newSecond = Pictures("root", "加密文件", TitleImage)
        
         picturesList.add(newSecond)
         nullItems.add(
@@ -74,8 +84,10 @@ class MainPage : AppCompatActivity() {
         RecyclerViewSettings.ShowAllItems(picturesList, this, mainpage_recyclerview)
 
         //搜索功能实现
+        val editText_title: EditText = findViewById(R.id.editText_title)
         editText_title.addTextChangedListener {
             var userInput = editText_title.text.toString()
+
             if (userInput.isEmpty()) {
                 RecyclerViewSettings.ShowAllItems(picturesList, this, mainpage_recyclerview)
             } else {
@@ -196,7 +208,7 @@ class MainPage : AppCompatActivity() {
                 //相册选择按钮
                 chooseModelLayout.button_ChooseFromPhotos.setOnClickListener {
                     dialog.dismiss()
-                    ShowToast(this, "从相册选择")
+                    GetToast.ShowToast(this, "从相册选择")
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     intent.addCategory(Intent.CATEGORY_OPENABLE)
                     intent.type = "image/*"
@@ -204,7 +216,7 @@ class MainPage : AppCompatActivity() {
                 }
                 //照相选择按钮
                 chooseModelLayout.button_ChooseFromCamera.setOnClickListener {
-                    ShowToast(this, "照相选择")
+                    GetToast.ShowToast(this, "照相选择")
                     dialog.dismiss()
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
                         outputImage = File(externalCacheDir, "output_image.jpg")

@@ -8,19 +8,13 @@ import androidx.appcompat.app.AlertDialog
 import com.example.mycloud.R
 import com.example.mycloud.userPages.MainPage
 import com.example.mycloud.utils.Checks
-import com.example.mycloud.utils.ShowToast
+import com.example.mycloud.utils.*
 import com.example.mycloudtest.database.*
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlin.concurrent.thread
 
 
 class Register : AppCompatActivity() {
-
-    companion object{
-        var ifRegister = false
-        var RegisterUserStored = ""
-        var encryptionPassword_R = ""
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,21 +28,24 @@ class Register : AppCompatActivity() {
             val input_password = passwordEdit_R.text.toString()
             val input_passwordEnsure = passwordEnsure.text.toString()
             if (input_account.isEmpty() || input_password.isEmpty() || input_passwordEnsure.isEmpty()){
-                ShowToast(this,"账号或密码不能为空")
+                GetToast.ShowToast(this,"账号或密码不能为空")
             }else{
                 if (!input_password.equals(input_passwordEnsure)){
-                    ShowToast(this,"两次输入的密码不同，请重新输入")
+                    GetToast.ShowToast(this,"两次输入的密码不同，请重新输入")
                 }else{
                     thread {
                         if (Checks.checkAccountUnique(input_account, myDao)) {
                             var user = Users(input_account, input_password,"")
                             myDao.insertUser(user)
                             runOnUiThread {
-                                ShowToast(this, "注册成功")
-                                RegisterUserStored = input_account
-                                ifRegister = true
-                                val intent = Intent(this, MainPage::class.java)
-                                startActivity(intent)
+                                GetToast.ShowToast(this, "注册成功")
+                                Login.LoginUserStored = input_account
+                                val intent_login = Intent()
+                                intent_login.setClass(this, MainPage::class.java)
+                                //将新的activity置为栈顶
+                                intent_login.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                startActivity(intent_login)
+                                finish()
                             }
                         } else {
                             runOnUiThread {
@@ -59,9 +56,8 @@ class Register : AppCompatActivity() {
                                     setNegativeButton("确认") { dialog, which -> }
                                     show()
                                 }
+                                //清空账号
                                 accountEdit_R.setText("")
-                                passwordEdit_R.setText("")
-                                passwordEnsure.setText("")
                             }
                         }
                     }

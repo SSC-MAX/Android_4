@@ -12,7 +12,7 @@ class Profile : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        textView_Profile.setText(Login.LoginUserStored)
+        textView_Profile.text = Login.LoginUserStored
 
         exit_app.setOnClickListener {
             val intent_login = Intent()

@@ -8,10 +8,8 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.example.mycloud.R
 import com.example.mycloud.userPages.MainPage
-import com.example.mycloud.utils.ShowToast
 import com.example.mycloudtest.database.AppDatabase
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlin.concurrent.thread
 
 class Login : AppCompatActivity() {
@@ -19,7 +17,7 @@ class Login : AppCompatActivity() {
     companion object{
         var ifLogin = false
         var LoginUserStored = ""
-        var encryptionPassword_L = ""
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +52,6 @@ class Login : AppCompatActivity() {
                        break
                    }
                }
-                
                 if (check){
                     //账号与密码匹配成功
                     val editor = prefs.edit()
@@ -69,8 +66,14 @@ class Login : AppCompatActivity() {
                     editor.apply()
                     editor.commit()
                     //启动用户主页面
-                    val intent = Intent(this, MainPage::class.java)
-                    startActivity(intent)
+                    LoginUserStored = account
+                    ifLogin = true
+                    val intent_login = Intent()
+                    intent_login.setClass(this, MainPage::class.java)
+                    //将新的activity置为栈顶
+                    intent_login.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent_login)
+                    finish()
                 }else{
                     //账号与密码不匹配，则开启主线程并在其中弹出AlertDialog
                     runOnUiThread {

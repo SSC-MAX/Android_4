@@ -18,4 +18,8 @@
     <string name="PasswordEnsure_String">确认密码</string>
     <string name="Register_String">注册并登录</string>
     <string name="exit_app">退出登陆</string>
+    <string name="String_EncryptionFile">加密文件</string>
+    <string name="String_PleaseInputEncryptionPassword">请输入密码：</string>
+    <string name="String_PleaseSetPassword">请为加密文件设置一个密码</string>
+    <string name="String_Password">密码：</string>
 </resources>
